@@ -69,19 +69,19 @@ g.length = function() {
 g.scale = function(a) {
   return new p(this.x * a, this.y * a);
 };
-function v(a) {
+function x(a) {
   return new p(a.x, a.y - 1);
 }
-function w(a) {
+function y(a) {
   return new p(a.x, a.y + 1);
 }
-function x(a) {
+function z(a) {
   return new p(a.x - 1, a.y);
 }
 g.right = function(a) {
   return new p(this.x + (void 0 === a ? 1 : a), this.y);
 };
-var y = ["+", "\u2012", "\u2013", "-", "|"], z = [">", "<", "^", "v"], ga = y.concat(z), B = "ontouchstart" in window || "onmsgesturechange" in window, C = new p(-1, 0), D = new p(1, 0), F = new p(0, -1), G = new p(0, 1), H = [C, D, F, G];
+var A = ["+", "\u2012", "\u2013", "-", "|"], B = [">", "<", "^", "v"], ga = A.concat(B), C = "ontouchstart" in window || "onmsgesturechange" in window, D = new p(-1, 0), E = new p(1, 0), F = new p(0, -1), G = new p(0, 1), H = [D, E, F, G];
 function I(a, b) {
   this.a = Math.min(a.x, b.x);
   this.b = Math.min(a.y, b.y);
@@ -151,7 +151,7 @@ function S(a) {
   a.b.length = 0;
 }
 function na(a, b) {
-  var c = R(a, b), e = null != c.a ? c.a : c.value, d = y.includes(e), f = z.includes(e);
+  var c = R(a, b), e = null != c.a ? c.a : c.value, d = A.includes(e), f = B.includes(e);
   if (!d && !f) {
     return e;
   }
@@ -180,23 +180,23 @@ function na(a, b) {
     }
   }
   if ((d || f) && 3 == N(c)) {
-    c.g = K(R(a, v(x(b))));
-    c.l = K(R(a, v(b.right())));
-    c.f = K(R(a, w(x(b))));
-    c.h = K(R(a, w(b.right())));
+    c.g = K(R(a, x(z(b))));
+    c.l = K(R(a, x(b.right())));
+    c.f = K(R(a, y(z(b))));
+    c.h = K(R(a, y(b.right())));
     if (!c.right && c.g && c.f || !c.a && c.l && c.h) {
       return "|";
     }
     if (!c.b && c.g && c.l || !c.c && c.h && c.f) {
       return "-";
     }
-    e = M(R(a, v(x(b))));
-    d = M(R(a, v(b.right())));
+    e = M(R(a, x(z(b))));
+    d = M(R(a, x(b.right())));
     if (c.c && c.a && c.right && (!e || !d)) {
       return "-";
     }
-    e = M(R(a, w(x(b))));
-    d = M(R(a, w(b.right())));
+    e = M(R(a, y(z(b))));
+    d = M(R(a, y(b.right())));
     return !(c.b && c.a && c.right) || e && d ? "+" : "-";
   }
   if (f && 1 == N(c)) {
@@ -216,7 +216,7 @@ function na(a, b) {
   return e;
 }
 function T(a, b) {
-  var c = K(R(a, x(b))), e = K(R(a, b.right())), d = K(R(a, v(b))), f = K(R(a, w(b)));
+  var c = K(R(a, z(b))), e = K(R(a, b.right())), d = K(R(a, x(b))), f = K(R(a, y(b)));
   return new ja(c, e, d, f);
 }
 function Q(a, b) {
@@ -227,15 +227,15 @@ function Q(a, b) {
   });
   a.b.length = 0;
   for (var d = n(d), f = d.next();!f.done;f = d.next()) {
-    var k = f.value, f = k.position, k = k.a;
-    c.push(new ka(f, null != k.value ? k.value : " "));
-    var l = J(k);
-    if ("\u2009" == l || " " == l) {
-      l = null;
+    var l = f.value, f = l.position, l = l.a;
+    c.push(new ka(f, null != l.value ? l.value : " "));
+    var k = J(l);
+    if ("\u2009" == k || " " == k) {
+      k = null;
     }
-    K(k) && (l = na(a, f));
-    k.a = null;
-    k.value = l;
+    K(l) && (k = na(a, f));
+    l.a = null;
+    l.value = k;
   }
   d = b ? a.f : a.g;
   0 < c.length && (50 < d.length && d.shift(), d.push(c));
@@ -266,11 +266,12 @@ function U(a) {
   if (0 > c.x) {
     return "";
   }
-  for (var f = "", d = b.y;d <= c.y;d++) {
-    for (var k = "", e = b.x;e <= c.x;e++) {
-      var l = na(a, new p(e, d)), k = k + (null == l || "\u2009" == l ? " " : l);
+  for (var f = "", l = RegExp("[\\u4E00-\\u9FFF]+"), k = /[\u3002|\uff1f|\uff01|\uff0c|\u3001|\uff1b|\uff1a|\u201c|\u201d|\u2018|\u2019|\uff08|\uff09|\u300a|\u300b|\u3008|\u3009|\u3010|\u3011|\u300e|\u300f|\u300c|\u300d|\ufe43|\ufe44|\u3014|\u3015|\u2026|\u2014|\uff5e|\ufe4f|\uffe5]/, d = b.y;d <= c.y;d++) {
+    for (var w = "", e = b.x;e <= c.x;e++) {
+      var v = na(a, new p(e, d)), w = w + (null == v || "\u2009" == v ? " " : v);
+      "|" != v && (l.test(v) || k.test(v)) && e++;
     }
-    f += k.replace(/\s+$/, "") + "\n";
+    f += w.replace(/\s+$/, "") + "\n";
   }
   return f;
 }
@@ -280,26 +281,26 @@ function qa(a, b, c) {
     e.x = Math.max(e.x, Math.round(b[d].length / 2));
   }
   for (d = 0;d < b.length;d++) {
-    for (var f = b[d], k = 0;k < f.length;k++) {
-      var l = f.charAt(k);
-      y.includes(l) && (l = "+");
-      P(a, u((new p(k, d)).add(c), e), l);
+    for (var f = b[d], l = 0;l < f.length;l++) {
+      var k = f.charAt(l);
+      A.includes(k) && (k = "+");
+      P(a, u((new p(l, d)).add(c), e), k);
     }
   }
 }
 ;function V(a, b, c, e, d) {
   d = void 0 === d ? "+" : d;
-  var f = new I(b, c), k = f.a, l = f.b, A = f.c, f = f.f, E = e ? c.x : b.x;
-  for (e = e ? b.y : c.y;k++ < A;) {
-    var q = new p(k, e), L = T(a, new p(k, e));
+  var f = new I(b, c), l = f.a, k = f.b, w = f.c, f = f.f, v = e ? c.x : b.x;
+  for (e = e ? b.y : c.y;l++ < w;) {
+    var q = new p(l, e), L = T(a, new p(l, e));
     " " == d && 2 == L.c + L.b || ma(a, q, d);
   }
-  for (;l++ < f;) {
-    q = new p(E, l), L = T(a, new p(E, l)), " " == d && 2 == L.a + L.right || ma(a, q, d);
+  for (;k++ < f;) {
+    q = new p(v, k), L = T(a, new p(v, k)), " " == d && 2 == L.a + L.right || ma(a, q, d);
   }
   P(a, b, d);
   P(a, c, d);
-  ma(a, new p(E, e), d);
+  ma(a, new p(v, e), d);
 }
 ;function ra(a) {
   this.a = a;
@@ -359,13 +360,13 @@ function ua(a) {
   d = !a.h;
   b.font = "15px Courier New";
   for (var f = c.x;f < e.x;f++) {
-    for (var k = c.y;k < e.y;k++) {
-      var l = R(a.g, new p(f, k));
-      if (K(l) || null != l.a && " " != J(l)) {
-        a.context.fillStyle = null != l.a ? "#DEF" : "#F5F5F5", b.fillRect(9 * f - a.a.x, 17 * (k - 1) - a.a.y, 9, 17);
+    for (var l = c.y;l < e.y;l++) {
+      var k = R(a.g, new p(f, l));
+      if (K(k) || null != k.a && " " != J(k)) {
+        a.context.fillStyle = null != k.a ? "#DEF" : "#F5F5F5", b.fillRect(9 * f - a.a.x, 17 * (l - 1) - a.a.y, 9, 17);
       }
-      var A = na(a.g, new p(f, k));
-      null == A || K(l) && !d || (a.context.fillStyle = "#000000", b.fillText(A, 9 * f - a.a.x, 17 * k - a.a.y - 3));
+      var w = na(a.g, new p(f, l));
+      null == w || K(k) && !d || (a.context.fillStyle = "#000000", b.fillText(w, 9 * f - a.a.x, 17 * l - a.a.y - 3));
     }
   }
   if (a.h) {
@@ -373,13 +374,13 @@ function ua(a) {
     b.strokeStyle = "#000000";
     b.beginPath();
     for (d = c.x;d < e.x;d++) {
-      for (l = !1, f = c.y;f < e.y;f++) {
-        k = R(a.g, new p(d, f)), K(k) && f != e.y - 1 || !l || (b.moveTo(9 * d - a.a.x + 4.5, 17 * l - a.a.y - 8.5), b.lineTo(9 * d - a.a.x + 4.5, 17 * (f - 1) - a.a.y - 8.5), l = !1), K(k) && !l && (l = f);
+      for (k = !1, f = c.y;f < e.y;f++) {
+        l = R(a.g, new p(d, f)), K(l) && f != e.y - 1 || !k || (b.moveTo(9 * d - a.a.x + 4.5, 17 * k - a.a.y - 8.5), b.lineTo(9 * d - a.a.x + 4.5, 17 * (f - 1) - a.a.y - 8.5), k = !1), K(l) && !k && (k = f);
       }
     }
     for (f = c.y;f < e.y;f++) {
-      for (l = !1, d = c.x;d < e.x;d++) {
-        k = R(a.g, new p(d, f)), K(k) && d != e.x - 1 || !l || (b.moveTo(9 * l - a.a.x + 4.5, 17 * f - a.a.y - 8.5), b.lineTo(9 * (d - 1) - a.a.x + 4.5, 17 * f - a.a.y - 8.5), l = !1), K(k) && !l && (l = d);
+      for (k = !1, d = c.x;d < e.x;d++) {
+        l = R(a.g, new p(d, f)), K(l) && d != e.x - 1 || !k || (b.moveTo(9 * k - a.a.x + 4.5, 17 * f - a.a.y - 8.5), b.lineTo(9 * (d - 1) - a.a.x + 4.5, 17 * f - a.a.y - 8.5), k = !1), K(l) && !k && (k = d);
       }
     }
     a.context.stroke();
@@ -533,8 +534,8 @@ g.o = function() {
 g.j = function() {
   var a = $("#text-tool-input").val();
   S(this.b);
-  for (var b = this.b, c = this.c, e = 0, d = 0, a = n(a), f = a.next();!f.done;f = a.next()) {
-    f = f.value, "\n" == f ? (d++, e = 0) : (P(b, c.add(new p(e, d)), f), e++);
+  for (var b = this.b, c = this.c, e = 0, d = 0, f = RegExp("[\\u4E00-\\u9FFF]+"), l = /[\u3002|\uff1f|\uff01|\uff0c|\u3001|\uff1b|\uff1a|\u201c|\u201d|\u2018|\u2019|\uff08|\uff09|\u300a|\u300b|\u3008|\u3009|\u3010|\u3011|\u300e|\u300f|\u300c|\u300d|\ufe43|\ufe44|\u3014|\u3015|\u2026|\u2014|\uff5e|\ufe4f|\uffe5]/, a = n(a), k = a.next();!k.done;k = a.next()) {
+    k = k.value, "\n" == k ? (d++, e = 0) : (P(b, c.add(new p(e, d)), k), f.test(k) || l.test(k) ? e += 2 : e++);
   }
 };
 function Ba(a) {
@@ -545,15 +546,15 @@ function Ba(a) {
 g = Ba.prototype;
 g.start = function(a) {
   var b;
-  if (B) {
+  if (C) {
     if (K(R(this.a, a))) {
       b = a;
     } else {
-      var c = H.concat([C.add(F), C.add(G), D.add(F), D.add(G)]);
+      var c = H.concat([D.add(F), D.add(G), E.add(F), E.add(G)]);
       b = null;
       for (var e = 0, c = n(c), d = c.next();!d.done;d = c.next()) {
-        var d = d.value, f = a.add(d), k = N(T(this.a, f));
-        K(R(this.a, f)) && k > e && (b = d, e = k);
+        var d = d.value, f = a.add(d), l = N(T(this.a, f));
+        K(R(this.a, f)) && l > e && (b = d, e = l);
       }
       b = null == b ? a : a.add(b);
     }
@@ -568,12 +569,12 @@ g.start = function(a) {
     e = n(H);
     for (c = e.next();!c.done;c = e.next()) {
       for (c = c.value, d = Ca(this, this.b, c), d = n(d), f = d.next();!f.done;f = d.next()) {
-        var f = f.value, k = 0 != c.x, l = -1 != z.indexOf(J(R(this.a, a))), A = -1 != z.indexOf(J(R(this.a, f)));
+        var f = f.value, l = 0 != c.x, k = -1 != B.indexOf(J(R(this.a, a))), w = -1 != B.indexOf(J(R(this.a, f)));
         if (1 == N(T(this.a, f))) {
-          b.push({position:f, s:k, v:l, u:A});
+          b.push({position:f, s:l, v:k, u:w});
         } else {
-          for (var E = n(H), q = E.next();!q.done;q = E.next()) {
-            q = q.value, 0 != c.add(q).length() && 2 != c.add(q).length() && (q = Ca(this, f, q), q.length && (q = q[0], b.push({position:q, s:k, v:l, w:A, u:-1 != z.indexOf(J(R(this.a, q)))})));
+          for (var v = n(H), q = v.next();!q.done;q = v.next()) {
+            q = q.value, 0 != c.add(q).length() && 2 != c.add(q).length() && (q = Ca(this, f, q), q.length && (q = q[0], b.push({position:q, s:l, v:k, w:w, u:-1 != B.indexOf(J(R(this.a, q)))})));
           }
         }
       }
@@ -617,7 +618,7 @@ g.j = function() {
 function Da(a, b) {
   this.a = a;
   this.value = b;
-  B && ($("#freeform-tool-input").val(""), $("#freeform-tool-input").hide(0, function() {
+  C && ($("#freeform-tool-input").val(""), $("#freeform-tool-input").hide(0, function() {
     $("#freeform-tool-input").show(0, function() {
       $("#freeform-tool-input").focus();
     });
@@ -637,7 +638,7 @@ g.o = function() {
   return "crosshair";
 };
 g.j = function(a) {
-  B && (this.value = $("#freeform-tool-input").val().substr(0, 1), $("#freeform-tool-input").blur(), $("#freeform-tool-input").hide(0));
+  C && (this.value = $("#freeform-tool-input").val().substr(0, 1), $("#freeform-tool-input").blur(), $("#freeform-tool-input").hide(0));
   1 == a.length && (this.value = a);
 };
 function Ea(a, b) {
